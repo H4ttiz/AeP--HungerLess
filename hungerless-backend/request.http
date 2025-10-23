@@ -1,0 +1,28 @@
+###
+POST http://localhost:8080/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Leonardo",
+  "email": "Leonardocbizerra@gmail.com",
+  "senha": "0304Leonardo",
+  "tipo": "ADMIN",
+  "documento": "075.946.869-93",
+  "logradouro": "Av. Guedner",
+  "numero": "1321",
+  "bairro": "Aclimação",
+  "cidade": "Maringá",
+  "estado": "Paraná",
+  "cep": "87050-390",
+  "celular": "(41)9 9741-4130"
+}
+
+###
+
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "email": "Leonardocbizerra@gmail.com",
+  "senha": "0304Leonardo"
+}

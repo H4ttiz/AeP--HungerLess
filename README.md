@@ -102,7 +102,8 @@ Sinta-se livre para contribuir, aprimorar e compartilhar! 💚
 ---
 
 ## 👥 Equipe
-- **Carfi Cadu** – Desenvolvimento e Coordenação Técnica  
-- *(Adicione aqui os demais membros da equipe, se houver)*
+- **Carlos Eduardo** – Desenvolvimento e Coordenação Técnica  
+- **Leonardo Bezerra** – Desenvolvimento e Coordenação Técnica
+- **Thiago Gimenes** – Desenvolvimento e Coordenação Técnica
 
 ---

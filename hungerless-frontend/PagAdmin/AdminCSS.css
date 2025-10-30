@@ -100,14 +100,58 @@ header {
     color: #444;
 }
 
-.content {
-    width: 80%;
-    background-color: rgb(245, 245, 245);
-}
-
 .sidebar a:hover {
     border-left: 4px solid #73b4ff;
     background-color: rgb(245, 245, 245);
     color: #777;
     font-weight: bold;
+}
+
+.sidebar a:hover .sidebar a > i {
+    color: #777;
+}
+
+.content {
+    width: 80%;
+    background-color: rgb(245, 245, 245);
+    padding: 20px;
+}
+
+.titulo-secao {
+    border-radius: 10px;
+    background-color: white;
+    padding: 10px;
+}
+
+.titulo-secao h2 {
+    font-size: 19px;
+}
+
+.titulo-secao p {
+    font-size: 14px;
+}
+
+.titulo-secao i {
+    color: #73b4ff;
+}
+
+.box-info {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.box-info-single {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+    margin:0 10px;
+    padding: 30px;
+}
+
+.box-info-single i {
+    font-size: 28px;
 }

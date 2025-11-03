@@ -155,3 +155,49 @@ header {
 .box-info-single i {
     font-size: 28px;
 }
+
+.feed {
+    margin: 20px 0;
+    background-color: white;
+    border-radius: 10px;
+    width: 100%;
+    padding: 30px;
+}
+
+.feed-sigle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.feed-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feed-text span{
+    color: black;
+    margin: 8px;
+    display: inline-block
+}
+
+.feed-text .circle-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #c3dfff;
+    position: relative;
+}
+
+.feed-text i {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 18px;
+    color: #73b4ff;
+}
+
+.feed-time {
+    color: #444;
+}

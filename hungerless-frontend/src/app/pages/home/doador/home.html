@@ -1,0 +1,191 @@
+<div class="layout">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Cabeçalho -->
+      <div class="page-header">
+        <h1>Meus Alimentos para Doação</h1>
+        <button class="btn-primary" (click)="openCreateModal()">
+          <i class="fas fa-plus"></i>
+          <span>Cadastrar Novo Alimento</span>
+        </button>
+      </div>
+
+      <!-- Card Principal -->
+      <div class="card">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Nome do Alimento</th>
+              <th>Categoria</th>
+              <th>Quantidade</th>
+              <th>Validade</th>
+              <th>Status</th>
+              <th class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Lista de alimentos -->
+            <tr *ngFor="let alimento of alimentos">
+              <td>{{ alimento.nome }}</td>
+              <td>{{ getCategoriaNome(alimento.categoriaId) }}</td>
+              <td>{{ alimento.quantidade }}</td>
+              <td>{{ alimento.validade | date: 'dd/MM/yyyy' }}</td>
+              <td>
+                <span
+                  class="status-badge"
+                  [ngClass]="{
+                    'status-disponivel': alimento.status === 'DISPONIVEL',
+                    'status-reservado': alimento.status === 'RESERVADO',
+                    'status-doado': alimento.status === 'DOADO'
+                  }"
+                >
+                  {{ formatStatus(alimento.status) }}
+                </span>
+              </td>
+              <td class="action-buttons text-center">
+                <button class="icon-btn btn-view" (click)="openViewModal(alimento)" title="Visualizar">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="icon-btn btn-edit" (click)="openEditModal(alimento)" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="icon-btn btn-delete" (click)="confirmDelete(alimento.id!)" title="Excluir">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Caso não tenha dados -->
+            <tr *ngIf="alimentos.length === 0">
+              <td colspan="6" class="text-center no-data">Nenhum alimento cadastrado.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal de Criação/Edição -->
+    <div class="modal-overlay" [class.open]="isModalOpen">
+      <div class="modal-content">
+        <h2>{{ isEditMode ? 'Editar Alimento' : 'Cadastrar Novo Alimento' }}</h2>
+        <form (ngSubmit)="saveAlimento()">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="nome">Nome do Alimento</label>
+              <input type="text" id="nome" name="nome" [(ngModel)]="currentAlimento.nome" required />
+            </div>
+
+            <div class="form-group">
+              <label for="categoriaId">Categoria</label>
+              <select id="categoriaId" name="categoriaId" [(ngModel)]="currentAlimento.categoriaId" required>
+                <option *ngFor="let cat of categorias" [ngValue]="cat.id">{{ cat.nome }}</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quantidade">Quantidade</label>
+              <input
+                type="number"
+                id="quantidade"
+                name="quantidade"
+                [(ngModel)]="currentAlimento.quantidade"
+                required
+                min="1"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="validade">Validade</label>
+              <input type="date" id="validade" name="validade" [(ngModel)]="currentAlimento.validade" required />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="status">Status</label>
+              <select id="status" name="status" [(ngModel)]="currentAlimento.status" required>
+                <option *ngFor="let s of statusOptions" [ngValue]="s">{{ formatStatus(s) }}</option>
+              </select>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="descricao">Descrição Adicional</label>
+              <textarea
+                id="descricao"
+                name="descricao"
+                [(ngModel)]="currentAlimento.descricao"
+                rows="3"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+            <button type="submit" class="btn-primary">
+              {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar Alimento' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Visualização -->
+    <div class="modal-overlay" [class.open]="isViewModalOpen">
+      <div class="modal-content">
+        <h2>Detalhes do Alimento</h2>
+        <div class="details-grid">
+          <div class="detail-item">
+            <strong>Nome:</strong>
+            <span>{{ viewAlimento.nome }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Categoria:</strong>
+            <span>{{ getCategoriaNome(viewAlimento.categoriaId) }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Quantidade:</strong>
+            <span>{{ viewAlimento.quantidade }}</span>
+          </div>
+          <div class="detail-item">
+            <strong>Validade:</strong>
+            <span>{{ viewAlimento.validade | date: 'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="detail-item full-width">
+            <strong>Status:</strong>
+            <span
+              class="status-badge"
+              [ngClass]="{
+                'status-disponivel': viewAlimento.status === 'DISPONIVEL',
+                'status-reservado': viewAlimento.status === 'RESERVADO',
+                'status-doado': viewAlimento.status === 'DOADO'
+              }"
+            >
+              {{ formatStatus(viewAlimento.status) }}
+            </span>
+          </div>
+          <div class="detail-item full-width">
+            <strong>Descrição:</strong>
+            <p>{{ viewAlimento.descricao || 'Nenhuma descrição fornecida.' }}</p>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeViewModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Exclusão -->
+    <div class="modal-overlay" [class.open]="isDeleteConfirmOpen">
+      <div class="modal-content small-modal">
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza de que deseja excluir o alimento selecionado? Esta ação não pode ser desfeita.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="isDeleteConfirmOpen = false">Cancelar</button>
+          <button type="button" class="btn-danger" (click)="deleteAlimento()">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

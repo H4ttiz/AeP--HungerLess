@@ -18,6 +18,7 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
+    // Gera token JWT
     public String generateToken(Usuario usuario) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -31,6 +32,7 @@ public class TokenService {
         }
     }
 
+    // Valida token e retorna email do usuário
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -40,7 +42,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return "";
+            return null; // Retorna null quando token inválido
         }
     }
 

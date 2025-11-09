@@ -4,6 +4,8 @@ import br.com.aep.hungerless.categorias.entities.Categoria;
 import br.com.aep.hungerless.doacoes.entities.Doacao;
 import br.com.aep.hungerless.alimentos.enums.StatusAlimento;
 import br.com.aep.hungerless.usuarios.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,6 +18,7 @@ import java.util.List;
 @Table(name = "alimentos")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Alimento {
 
     @Id
@@ -24,11 +27,8 @@ public class Alimento {
     private Long id;
 
     private String nome;
-
     private String descricao;
-
     private LocalDate validade;
-
     private Integer quantidade;
 
     @Enumerated(EnumType.STRING)
@@ -43,7 +43,6 @@ public class Alimento {
     private Usuario doador;
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
-
     private LocalDateTime dataAtualizacao = LocalDateTime.now();
 
     @OneToMany(mappedBy = "alimento")

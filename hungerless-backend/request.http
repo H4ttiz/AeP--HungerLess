@@ -19,10 +19,93 @@ Content-Type: application/json
 
 ###
 
+
 POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
   "email": "Leonardocbizerra@gmail.com",
   "senha": "0304Leonardo"
+}
+
+###
+
+GET localhost:8080/usuarios
+Authorization: Bearer {{$auth.token("")}}
+###
+
+GET localhost:8080/usuarios/{{id}}
+Authorization: Bearer {{$auth.token("")}}
+###
+
+PUT localhost:8080/usuarios/{{id}}
+Authorization: Bearer {{$auth.token("")}}
+Content-Type: application/json
+
+{
+    "nome": "",
+    "email": "",
+    "senha": "",
+    "tipo": "",
+    "documento": ""
+}
+
+
+###
+
+DELETE localhost:8080/usuarios/{{id}}
+Authorization: Bearer {{$auth.token("")}}
+
+###
+
+GET http://localhost:8080/alimentos
+Authorization: Bearer {{$auth.token("")}}
+
+###
+
+GET http://localhost:8080/alimentos/{{id}}
+Authorization: Bearer {{$auth.token("")}}
+
+###
+
+POST http://localhost:8080/alimentos
+Authorization: Bearer {{$auth.token("")}}
+Content-Type: application/json
+
+{
+  "nome":"",
+  "descricao": "",
+  "validade": "",
+  "quantidade": "",
+  "categoriaId": "",
+  "status": ""
+}
+
+###
+
+PUT http://localhost:8080/alimentos/{{id}}
+Authorization: Bearer {{$auth.token("")}}
+Content-Type: application/json
+
+{
+  "nome":"",
+  "descricao": "",
+  "validade": "",
+  "quantidade": "",
+  "categoriaId": "",
+  "status": ""
+}
+
+
+###
+GET http://localhost:8080/categorias
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodW5nZXJsZXNzLWFwaSIsInN1YiI6Ikxlb25hcmRvY2JpemVycmFAZ21haWwuY29tIiwiZXhwIjoxNzYyNjc0MzI0fQ.gqvEWE08kxfZ46jki_oQOkvPVFWH0EgwXPoRnFWzYWo
+
+###
+POST http://localhost:8080/alimentos
+Authorization: Bearer
+Content-Type: application/json
+
+{
+
 }

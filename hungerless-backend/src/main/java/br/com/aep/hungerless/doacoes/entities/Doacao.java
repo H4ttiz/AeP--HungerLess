@@ -3,6 +3,8 @@ package br.com.aep.hungerless.doacoes.entities;
 import br.com.aep.hungerless.alimentos.entities.Alimento;
 import br.com.aep.hungerless.doacoes.enums.StatusDoacao;
 import br.com.aep.hungerless.usuarios.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "doacoes")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Doacao {
 
     @Id
@@ -36,9 +39,7 @@ public class Doacao {
     private StatusDoacao status = StatusDoacao.AGUARDANDO;
 
     private LocalDateTime dataSolicitacao = LocalDateTime.now();
-
     private LocalDateTime dataAprovacao;
-
     private LocalDateTime dataEntrega;
 
     @PreUpdate

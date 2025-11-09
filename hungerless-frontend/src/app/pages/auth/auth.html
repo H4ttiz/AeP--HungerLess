@@ -1,0 +1,176 @@
+<div class="container">
+  <div class="form-panel">
+    <!-- Painel lateral -->
+    <div class="toggle-panel">
+      <!-- Mostra apenas quando está no LOGIN -->
+      <div *ngIf="!isSignUpPanelActive" class="toggle-content">
+        <h2>Bem-vindo de volta!</h2>
+        <p>Insira seus dados pessoais para usar todos os recursos</p>
+        <button class="btn btn-secondary card-left-btn" (click)="togglePanel()">Criar Conta</button>
+      </div>
+
+      <!-- Mostra apenas quando está no CADASTRO -->
+      <div *ngIf="isSignUpPanelActive" class="toggle-content">
+        <h2>Olá, Amigo!</h2>
+        <p>Continue seu cadastro em passos rápidos</p>
+        <button class="btn btn-secondary card-left-btn" (click)="togglePanel()">Voltar ao Login</button>
+      </div>
+    </div>
+
+    <!-- ====================== LOGIN ====================== -->
+    <div *ngIf="!isSignUpPanelActive" class="login-area">
+      <h3 class="title">Entrar</h3>
+      <p class="subtitle">Use seu email e senha</p>
+      <form #loginForm="ngForm" class="form-block">
+        <div class="form-group">
+          <label class="label">Email</label>
+          <input
+            name="loginEmail"
+            class="input-field"
+            [(ngModel)]="loginData.email"
+            required
+            placeholder="seu@email.com" />
+        </div>
+
+        <div class="form-group">
+          <label class="label">Senha</label>
+          <input
+            name="loginSenha"
+            type="password"
+            class="input-field"
+            [(ngModel)]="loginData.senha"
+            required
+            placeholder="********" />
+        </div>
+
+        <div class="actions">
+          <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="loading || !loginForm.form.valid"
+            (click)="logar()">
+            {{loading ? 'Entrando...' : 'Entrar'}}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ====================== CADASTRO ====================== -->
+    <div *ngIf="isSignUpPanelActive" class="signup-area">
+      <h3 class="title">Criar Conta</h3>
+      <p class="subtitle">Preencha todos os campos para continuar</p>
+
+      <div class="steps-indicator">
+        <span class="step-badge" [class.active]="step === 1">Usuário</span>
+        <span class="step-badge" [class.active]="step === 2">Contato</span>
+        <span class="step-badge" [class.active]="step === 3">Endereço</span>
+      </div>
+
+      <form #cadastroForm="ngForm" class="form-block">
+        <!-- Etapa 1 -->
+        <div class="step" [class.active-step]="step === 1">
+          <div class="form-group">
+            <label class="label">Nome Completo <span class="required">*</span></label>
+            <input name="nome" class="input-field" [(ngModel)]="cadastroData.nome" required placeholder="Seu nome completo" />
+          </div>
+
+          <div class="form-group">
+            <label class="label">Email <span class="required">*</span></label>
+            <input name="email" type="email" class="input-field" [(ngModel)]="cadastroData.email" required placeholder="seu@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="label">Senha <span class="required">*</span></label>
+            <input name="senha" type="password" class="input-field" [(ngModel)]="cadastroData.senha" required placeholder="********" />
+          </div>
+
+          <div class="form-group">
+            <label class="label">Tipo de Usuário <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="tipo" [(ngModel)]="cadastroData.tipo" value="DOADOR" checked /> Doador</label>
+              <label class="radio-label"><input type="radio" name="tipo" [(ngModel)]="cadastroData.tipo" value="RECEPTOR" /> Receptor</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="label">CPF / CNPJ <span class="required">*</span></label>
+            <input name="documento" class="input-field" [(ngModel)]="cadastroData.documento" required placeholder="000.000.000-00" />
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn btn-secondary" (click)="togglePanel()">Cancelar</button>
+            <button type="button" class="btn btn-primary" (click)="avancar()" [disabled]="isNextButtonDisabled()">Próxima Etapa</button>
+          </div>
+        </div>
+
+        <!-- Etapa 2 -->
+        <div class="step" [class.active-step]="step === 2">
+          <div class="form-group">
+            <label class="label">Celular <span class="required">*</span></label>
+            <input name="celular" class="input-field" [(ngModel)]="cadastroData.celular" required placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="form-group">
+            <label class="label">Telefone Fixo (opcional)</label>
+            <input name="telefoneFixo" class="input-field" [(ngModel)]="cadastroData.telefoneFixo" placeholder="(00) 0000-0000" />
+          </div>
+
+          <div class="form-group">
+            <label class="label">WhatsApp (opcional)</label>
+            <input name="whatsapp" class="input-field" [(ngModel)]="cadastroData.whatsapp" placeholder="(00) 00000-0000" />
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn btn-secondary" (click)="voltar()">Voltar</button>
+            <button type="button" class="btn btn-primary" (click)="avancar()" [disabled]="isNextButtonDisabled()">Próxima Etapa</button>
+          </div>
+        </div>
+
+        <!-- Etapa 3 -->
+        <div class="step" [class.active-step]="step === 3">
+          <div class="form-group">
+            <label class="label">CEP <span class="required">*</span></label>
+            <input name="cep" class="input-field" [(ngModel)]="cadastroData.cep" required placeholder="00000-000" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-grow">
+              <label class="label">Logradouro <span class="required">*</span></label>
+              <input name="logradouro" class="input-field" [(ngModel)]="cadastroData.logradouro" required placeholder="Rua / Av." />
+            </div>
+            <div class="form-group flex-shrink">
+              <label class="label">Número <span class="required">*</span></label>
+              <input name="numero" class="input-field" [(ngModel)]="cadastroData.numero" required placeholder="Nº" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="label">Complemento (opcional)</label>
+            <input name="complemento" class="input-field" [(ngModel)]="cadastroData.complemento" placeholder="Apto, sala, bloco..." />
+          </div>
+
+          <div class="form-group">
+            <label class="label">Bairro <span class="required">*</span></label>
+            <input name="bairro" class="input-field" [(ngModel)]="cadastroData.bairro" required placeholder="Bairro" />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-grow">
+              <label class="label">Cidade <span class="required">*</span></label>
+              <input name="cidade" class="input-field" [(ngModel)]="cadastroData.cidade" required placeholder="Cidade" />
+            </div>
+            <div class="form-group flex-shrink">
+              <label class="label">Estado <span class="required">*</span></label>
+              <input name="estado" class="input-field" [(ngModel)]="cadastroData.estado" required placeholder="UF" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn btn-secondary" (click)="voltar()">Voltar</button>
+            <button type="button" class="btn btn-primary" (click)="cadastrar()">Cadastrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

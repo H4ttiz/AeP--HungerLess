@@ -5,6 +5,8 @@ import br.com.aep.hungerless.contatos.entities.Contato;
 import br.com.aep.hungerless.doacoes.entities.Doacao;
 import br.com.aep.hungerless.enderecos.entities.Endereco;
 import br.com.aep.hungerless.usuarios.enums.TipoUsuario;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ import java.util.List;
 @Table(name = "usuarios")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Usuario implements UserDetails {
 
     @Id

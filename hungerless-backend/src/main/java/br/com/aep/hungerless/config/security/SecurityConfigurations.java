@@ -36,6 +36,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.PUT, "/alimentos/**").hasRole("DOADOR")
                         .requestMatchers(HttpMethod.DELETE, "/alimentos/**").hasRole("DOADOR")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/usuarios/doadores").hasRole("RECEPTOR")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

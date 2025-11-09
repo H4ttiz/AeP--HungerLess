@@ -1,0 +1,349 @@
+/* Estilos do Componente de Autenticação (Corrigidos e Otimizados) */
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  min-height: calc(100vh - 36px);
+}
+
+.form-panel {
+  width: 100%;
+  /* Corrigido: Usando grid-template-columns para definir o layout de duas colunas */
+  grid-template-columns: 480px 1fr; /* 480px para o painel lateral, 1fr para o conteúdo do formulário */
+  column-gap: 40px; /* Espaçamento entre as colunas */
+  display: grid;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.03);
+  align-self: center;
+  padding: 0;
+}
+
+/* Painel Lateral (Toggle Panel) */
+.toggle-panel {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  background: radial-gradient(800px 400px at 20% 30%, rgba(155,89,255,0.14), transparent),
+              linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  min-height: 420px; /* Garante altura mínima */
+}
+
+.toggle-panel h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.4px;
+  text-shadow: 0 6px 30px rgba(86,30,150,0.35);
+}
+
+.toggle-panel p {
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  max-width: 320px;
+  margin-bottom: 18px; /* Adicionado margem para separar do botão */
+}
+
+/* Botão do Painel Lateral */
+.card-left-btn {
+  border-radius: var(--radius-md); /* Ajustado para um raio menor */
+  padding: 10px 20px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.3); /* Borda mais visível */
+  background: rgba(255,255,255,0.1); /* Fundo sutil */
+  color: #fff;
+  transition: all var(--transition);
+}
+
+.card-left-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Conteúdo do Formulário (Login e Cadastro) */
+.form-content {
+  padding: 36px 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--white-90);
+}
+
+/* Estilos para as áreas de Login e Cadastro */
+.login-area, .signup-area {
+  padding: 36px 44px; /* Padding aplicado diretamente nas áreas para melhor controle */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--white-90);
+}
+
+/* Títulos e Subtítulos */
+.title {
+  font-size: 20px;
+  color: var(--white-90);
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 24px; /* Aumentado para melhor separação do formulário */
+}
+
+/* Indicador de Etapas (Apenas para Cadastro) */
+.steps-indicator {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 24px; /* Aumentado o espaçamento inferior */
+}
+
+.step-badge {
+  background: rgba(255,255,255,0.03);
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13px;
+  border: 1px solid rgba(255,255,255,0.02);
+  transition: all var(--transition);
+}
+
+.step-badge.active {
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  color: #fff;
+  box-shadow: 0 8px 30px rgba(106,62,242,0.18);
+  transform: translateY(-3px) scale(1.02);
+}
+
+.form-block {
+  width: 100%;
+  /* Removido max-width aqui para permitir que o formulário ocupe o espaço total */
+}
+
+.form-group {
+  margin-bottom: 18px; /* Aumentado o espaçamento entre grupos */
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  color: var(--muted);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.required {
+  color: #ff6b6b;
+  margin-left: 6px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Linhas de Formulário (Grid) */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+.form-row .form-group {
+  margin-bottom: 0;
+}
+
+/* Campo de Input */
+.input-field {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,0.04);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: var(--white-90);
+  outline: none;
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition);
+  font-size: 14px;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+}
+
+.input-field::placeholder {
+  color: rgba(255,255,255,0.28);
+  font-weight: 500;
+}
+
+.input-field:focus {
+  border-color: var(--accent-2); /* Usando variável para consistência */
+  box-shadow: var(--input-shadow), 0 0 18px rgba(155,89,255,0.06) inset;
+  transform: translateY(-1px);
+}
+
+.input-field:focus-visible {
+  outline: 2px solid rgba(155,89,255,0.14);
+  outline-offset: 3px;
+}
+
+/* Estilos Específicos para a Área de Login */
+.login-area .form-block {
+  max-width: 420px; /* Mantido para centralizar o formulário de login */
+  margin: 0 auto;
+}
+
+.login-area .actions {
+  margin-top: 24px; /* Aumentado para melhor separação */
+}
+
+/* Grupos de Rádio */
+.radio-group {
+  display: flex;
+  gap: 24px; /* Aumentado o espaçamento */
+  align-items: center;
+}
+
+.radio-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  color: var(--white-90);
+  font-weight: 500; /* Ajustado para 500 para ser menos pesado */
+  font-size: 14px;
+}
+
+.radio-label input {
+  width: 16px; /* Ajustado o tamanho */
+  height: 16px;
+  accent-color: var(--accent-2);
+}
+
+/* Ações (Botões) */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 700; /* Ajustado para 700 */
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  font-size: 14px;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+  box-shadow: 0 10px 30px rgba(106,62,242,0.18), 0 2px 12px rgba(155,89,255,0.06) inset;
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08); /* Borda mais visível */
+  color: var(--white-90);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent-1);
+}
+
+/* Utilitários de Layout */
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* Transição de Etapas */
+.step {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(10px); /* Ajustado para Y */
+  overflow: hidden;
+  transition: max-height 360ms ease, opacity 320ms ease, transform 320ms ease;
+}
+
+.step.active-step {
+  max-height: 1200px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 980px) {
+  .form-panel {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .toggle-panel {
+    order: 2;
+    padding: 28px;
+    align-items: center;
+    text-align: center;
+  }
+  .toggle-panel p {
+    max-width: 100%;
+  }
+  .toggle-panel .card-left-btn {
+    margin-top: 10px;
+  }
+  .login-area, .signup-area {
+    order: 1;
+    padding: 22px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .login-area .form-block {
+    max-width: 100%;
+  }
+}
+
+/* Estilos para o login-area quando está no modo mobile */
+@media (max-width: 980px) {
+  .login-area .form-block {
+    margin: 0;
+  }
+}
+
+/* Classes auxiliares para o form-row */
+.flex-grow {
+  flex-grow: 1;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+/* Corrigindo o problema de alinhamento do botão de login */
+.login-area .actions {
+  justify-content: flex-end; /* Garante que o botão fique à direita */
+}

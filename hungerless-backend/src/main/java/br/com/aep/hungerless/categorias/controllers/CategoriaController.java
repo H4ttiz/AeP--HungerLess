@@ -16,10 +16,11 @@ public class CategoriaController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Categoria>> listar() {
         return ResponseEntity.ok(categoriaRepository.findAll());
     }
+
 
 
     @PostMapping("/admin")

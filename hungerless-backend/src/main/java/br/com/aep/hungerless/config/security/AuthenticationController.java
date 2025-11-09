@@ -3,6 +3,7 @@ package br.com.aep.hungerless.config.security;
 import br.com.aep.hungerless.config.security.dto.AuthenticationDTO;
 import br.com.aep.hungerless.config.security.dto.LoginResponseDTO;
 import br.com.aep.hungerless.usuarios.entities.Usuario;
+import br.com.aep.hungerless.usuarios.enums.TipoUsuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class AuthenticationController {
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        var tipoUsuario = TipoUsuario.fromAuthority(auth.getAuthorities().iterator().next().getAuthority());
+        return ResponseEntity.ok(new LoginResponseDTO(token,  tipoUsuario));
     }
 }

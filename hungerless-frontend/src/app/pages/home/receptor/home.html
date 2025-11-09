@@ -1,0 +1,109 @@
+<div class="layout">
+  <!-- O componente app-sidebar (se existir) deve ser importado e usado aqui -->
+  <!-- <app-sidebar></app-sidebar> -->
+  <app-sidebar></app-sidebar>
+  <!-- Conteúdo principal -->
+  <div class="main-content">
+    <div class="container">
+      <!-- Cabeçalho -->
+      <div class="page-header">
+        <h1 *ngIf="!doadorSelecionado">Doadores Disponíveis</h1>
+        <h1 *ngIf="doadorSelecionado">Detalhes do Doador</h1>
+        <button
+          *ngIf="doadorSelecionado"
+          class="btn-secondary"
+          (click)="voltarParaLista()"
+        >
+          <i class="fas fa-arrow-left"></i>
+          <span>Voltar para a Lista</span>
+        </button>
+      </div>
+
+      <!-- Card Principal - Listagem de Doadores -->
+      <div class="card" *ngIf="!doadorSelecionado">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>Nome do Doador</th>
+              <th class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Lista de doadores -->
+            <tr *ngFor="let doador of doadores">
+              <td>{{ doador.nome }}</td>
+              <td class="action-buttons text-center">
+                <button
+                  class="icon-btn btn-view"
+                  (click)="selecionarDoador(doador)"
+                  title="Ver Detalhes"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+
+            <!-- Caso não tenha dados -->
+            <tr *ngIf="doadores.length === 0">
+              <td colspan="2" class="text-center no-data">
+                Nenhum doador disponível no momento.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Card Principal - Detalhes do Doador -->
+      <div class="card" *ngIf="doadorSelecionado">
+        <!-- Informações do Doador -->
+        <div class="details-section">
+          <h2>Informações de Contato</h2>
+          <div class="details-grid">
+            <div class="detail-item">
+              <strong>Nome:</strong>
+              <span>{{ doadorSelecionado.nome }}</span>
+            </div>
+            <div class="detail-item">
+              <strong>Contato:</strong>
+              <span>{{ doadorSelecionado.contato }}</span>
+            </div>
+            <div class="detail-item full-width">
+              <strong>Endereço:</strong>
+              <span>{{ doadorSelecionado.endereco }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lista de Alimentos Disponíveis -->
+        <div class="details-section food-list-section">
+          <h2>Alimentos Disponíveis</h2>
+          <table class="food-table">
+            <thead>
+              <tr>
+                <th>Alimento</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Validade</th>
+                <th>Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let alimento of doadorSelecionado.alimentos">
+                <td>{{ alimento.nome }}</td>
+                <td>{{ alimento.categoria }}</td>
+                <td>{{ alimento.quantidade }}</td>
+                <td>{{ alimento.validade | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ alimento.descricao }}</td>
+              </tr>
+              <tr *ngIf="doadorSelecionado.alimentos.length === 0">
+                <td colspan="5" class="text-center no-data">
+                  Nenhum alimento disponível no momento.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

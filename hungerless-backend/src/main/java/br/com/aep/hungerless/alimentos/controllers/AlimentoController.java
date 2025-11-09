@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alimentos")
 public class AlimentoController {
@@ -61,5 +63,16 @@ public class AlimentoController {
         return alimentoService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/doador/{doadorId}")
+    public List<AlimentoDTO> listarPorDoador(@PathVariable Long doadorId) {
+        return alimentoService.buscarPorDoador(doadorId);
+    }
+
+    @GetMapping("/meus-alimentos")
+    public ResponseEntity<List<AlimentoDTO>> listarMeusAlimentos(@AuthenticationPrincipal Usuario doador) {
+        List<AlimentoDTO> alimentos = alimentoService.buscarPorDoador(doador.getId());
+        return ResponseEntity.ok(alimentos);
     }
 }

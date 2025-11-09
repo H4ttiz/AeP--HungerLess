@@ -1,0 +1,398 @@
+/* Importação do Font Awesome (Versão 6) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 40px 40px 40px; /* Ajuste para o header fixo */
+}
+
+/* Header */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 80px;
+    background-color: var(--bg-1);
+    border-bottom: 1px solid var(--glass);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--white-90);
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Botões de Ação */
+.btn-primary, .btn-secondary, .btn-danger {
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    color: var(--white-90);
+    box-shadow: 0 4px 15px rgba(106, 62, 242, 0.4);
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(106, 62, 242, 0.6);
+}
+
+.btn-secondary {
+    background-color: var(--glass);
+    color: var(--white-90);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: var(--white-90);
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Controles de Usuário (Ícones e Foto) */
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.4rem;
+    transition: color var(--transition), background-color var(--transition);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.icon-btn:hover {
+    color: var(--accent-2);
+    background-color: rgba(106, 62, 242, 0.1);
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color var(--transition);
+}
+
+.profile-pic:hover {
+    border-color: var(--accent-2);
+}
+
+/* Card da Tabela */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--glass);
+    overflow-x: auto; /* Para tabelas grandes */
+}
+
+/* Tabela de Usuários */
+.user-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 700px; /* Garante que a tabela não fique muito estreita */
+}
+
+.user-table th, .user-table td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.user-table th {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--glass);
+}
+
+.user-table tbody tr {
+    transition: background-color var(--transition);
+}
+
+.user-table tbody tr:hover {
+    background-color: rgba(155, 89, 255, 0.05);
+}
+
+.user-table tbody tr:not(:last-child) td {
+    border-bottom: 1px solid var(--glass);
+}
+
+/* Botões de Ação na Tabela */
+.action-buttons {
+    white-space: nowrap; /* Impede que os botões quebrem a linha */
+}
+
+.action-buttons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1.1rem;
+    transition: color var(--transition), transform var(--transition);
+    padding: 5px;
+}
+
+.btn-edit {
+    color: #3498db; /* Azul para editar */
+}
+
+.btn-delete {
+    color: var(--danger); /* Vermelho para excluir */
+}
+
+.action-buttons button:hover {
+    transform: scale(1.1);
+}
+
+/* --- Modal/Formulário de CRUD (Melhorado) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--bg-1);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  width: 90%;
+  max-width: 600px; /* Aumentado para melhor visualização do formulário */
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--glass);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.open .modal-content {
+  transform: scale(1);
+}
+
+.modal-content h2 {
+    margin-bottom: 25px;
+    color: var(--accent-2);
+    border-bottom: 2px solid var(--glass);
+    padding-bottom: 10px;
+}
+
+/* Layout de Colunas para o Formulário */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 0; /* Removido para usar o gap do grid */
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--glass);
+    border-radius: var(--radius-md);
+    color: var(--white-90);
+    font-size: 1rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    box-sizing: border-box; /* Inclui padding e border na largura */
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--accent-1);
+    box-shadow: var(--input-shadow);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* --- Sidebar --- */
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100%;
+    background-color: var(--bg-1);
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu.open {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--glass);
+    margin-bottom: 20px;
+}
+
+.profile-pic-large {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 3px solid var(--accent-2);
+}
+
+.user-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--white-90);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition), color var(--transition);
+}
+
+.nav-item i {
+    margin-right: 15px;
+    font-size: 1.1rem;
+}
+
+.nav-item:hover {
+    background-color: rgba(106, 62, 242, 0.15);
+    color: var(--accent-2);
+}
+
+/* Overlay para fechar o menu lateral */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsividade básica */
+@media (max-width: 768px) {
+    .header {
+        padding: 0 20px;
+    }
+    .container {
+        padding: 100px 20px 20px 20px;
+    }
+    .header-actions {
+        gap: 10px;
+    }
+    .btn-primary, .btn-secondary {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .modal-content {
+        max-width: 95%;
+    }
+}

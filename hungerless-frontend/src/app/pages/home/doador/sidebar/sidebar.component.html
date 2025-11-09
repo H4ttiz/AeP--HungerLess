@@ -1,0 +1,22 @@
+<div class="sidebar">
+  <div class="logo">
+    <i class="fas fa-seedling"></i>
+    <span>HungerLess</span>
+  </div>
+
+  <ul class="menu">
+    <li *ngFor="let item of menuItems" routerLinkActive="active">
+      <a [routerLink]="item.route">
+        <i class="fas" [class]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="logout">
+    <button (click)="sair()">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Sair</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,176 @@
+<div class="container">
+  <!-- Header -->
+  <header class="header">
+    <h1>Gerenciamento de Usuários</h1>
+    <div class="header-actions">
+      <button class="btn-primary" (click)="openModal()">
+        <i class="fas fa-plus"></i> Adicionar Usuário
+      </button>
+
+      <button class="btn-secondary" (click)="carregarUsuarios()">
+        <i class="fas fa-sync-alt"></i> Atualizar Lista
+      </button>
+
+      <div class="user-controls">
+        <!-- Botão para abrir a sidebar -->
+        <button class="icon-btn" (click)="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iMjAiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSI3IiB5PSIyMyIgc3R5bGU9ImZpbGw6IzM2MzYzNjs7Zm9udC13ZWlnaHQ6Ym9sZDsiPkZPVDwvdGV4dD48L3N2Zz4=" class="profile-pic" (click)="toggleSidebar()" />
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabela -->
+  <div class="card">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Tipo</th>
+          <th>Documento</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.id }}</td>
+          <td>{{ user.nome }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.tipo }}</td>
+          <td>{{ user.documento }}</td>
+          <td class="action-buttons">
+            <button class="btn-edit" (click)="openModal(user)" title="Editar">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn-delete" (click)="confirmDelete(user)" title="Excluir">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal de Cadastro/Edição -->
+<div class="modal-overlay" [class.open]="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ editingUser ? 'Editar Usuário' : 'Adicionar Novo Usuário' }}</h2>
+
+    <form (ngSubmit)="saveUser()">
+      <div class="form-grid">
+        <!-- Dados Pessoais -->
+        <div class="form-group full-width">
+          <label>Nome</label>
+          <input type="text" [(ngModel)]="formData.nome" name="nome" required />
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="formData.email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label>Tipo</label>
+          <select [(ngModel)]="formData.tipo" name="tipo" required>
+            <option value="ADMIN">Admin</option>
+            <option value="DOADOR">Doador</option>
+            <option value="RECEPTOR">Receptor</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Documento</label>
+          <input type="text" [(ngModel)]="formData.documento" name="documento" required />
+        </div>
+
+        <div class="form-group">
+          <label>Celular</label>
+          <input type="text" [(ngModel)]="formData.celular" name="celular" />
+        </div>
+
+        <!-- Senha -->
+        <div class="form-group" *ngIf="!editingUser">
+          <label>Senha</label>
+          <input type="password" [(ngModel)]="formData.senha" name="senha" required />
+        </div>
+
+        <div class="form-group" *ngIf="editingUser">
+          <label>Nova Senha (Opcional)</label>
+          <input type="password" [(ngModel)]="formData.senha" name="senha" />
+        </div>
+
+        <!-- Endereço -->
+        <div class="form-group full-width">
+          <h3 style="color: var(--muted); margin-top: 10px; border-bottom: 1px solid var(--glass); padding-bottom: 5px;">Endereço</h3>
+        </div>
+
+        <div class="form-group">
+          <label>CEP</label>
+          <input type="text" [(ngModel)]="formData.cep" name="cep" />
+        </div>
+
+        <div class="form-group">
+          <label>Logradouro</label>
+          <input type="text" [(ngModel)]="formData.logradouro" name="logradouro" />
+        </div>
+
+        <div class="form-group">
+          <label>Número</label>
+          <input type="text" [(ngModel)]="formData.numero" name="numero" />
+        </div>
+
+        <div class="form-group">
+          <label>Bairro</label>
+          <input type="text" [(ngModel)]="formData.bairro" name="bairro" />
+        </div>
+
+        <div class="form-group">
+          <label>Cidade</label>
+          <input type="text" [(ngModel)]="formData.cidade" name="cidade" />
+        </div>
+
+        <div class="form-group">
+          <label>Estado</label>
+          <input type="text" [(ngModel)]="formData.estado" name="estado" />
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancelar</button>
+        <button type="submit" class="btn-primary">Salvar</button>
+      </div>
+   </form>
+  </div>
+</div>
+
+<!-- Modal de Confirmação de Exclusão -->
+<div class="modal-overlay" [class.open]="showConfirmDelete" (click)="cancelDelete()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Confirmar Exclusão</h2>
+    <p>Deseja realmente excluir o usuário <b>{{ userToDelete?.nome }}</b>?</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" (click)="cancelDelete()">Cancelar</button>
+      <button class="btn-danger" (click)="deleteUser()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay escurecido -->
+<div class="sidebar-overlay" [class.open]="showSidebar" (click)="toggleSidebar(false)"></div>
+
+<!-- Sidebar -->
+<div class="sidebar-menu" [class.open]="showSidebar">
+  <div class="sidebar-header">
+    <img src="assets/img/default-user.png" alt="Foto de Perfil" class="profile-pic-large" />
+    <span class="user-name">Usuário Exemplo</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#" class="nav-item"><i class="fas fa-cog"></i> Configuração</a>
+    <a href="#" class="nav-item" (click)="carregarUsuarios()"><i class="fas fa-sync-alt"></i> Atualizar</a>
+    <a href="#" class="nav-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Sair</a>
+  </nav>
+</div>

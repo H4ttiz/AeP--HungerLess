@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AlimentoService {
@@ -90,5 +92,12 @@ public class AlimentoService {
     public Optional<AlimentoDTO> buscarPorId(Long id) {
         return alimentoRepository.findById(id)
                 .map(AlimentoDTO::new);
+    }
+
+    public List<AlimentoDTO> buscarPorDoador(Long doadorId) {
+        return alimentoRepository.findByDoadorId(doadorId)
+                .stream()
+                .map(AlimentoDTO::new)
+                .collect(Collectors.toList());
     }
 }

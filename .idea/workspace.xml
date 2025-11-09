@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1ac0198-d10b-4103-9f01-b108b864814e" name="Changes" comment="" />
+    <list default="true" id="b1ac0198-d10b-4103-9f01-b108b864814e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/hungerless-backend/src/main/java/br/com/aep/hungerless/config/security/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/hungerless-backend/src/main/java/br/com/aep/hungerless/config/security/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hungerless-backend/src/main/java/br/com/aep/hungerless/usuarios/dto/UsuarioRequestDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/hungerless-backend/src/main/java/br/com/aep/hungerless/usuarios/dto/UsuarioRequestDTO.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,9 +19,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
 }]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="34WevntMqxlyweUM8KRK4U0RICR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -32,7 +39,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "C:/Users/caduc/OneDrive/Área de Trabalho/AeP--HungerLess",
+    "last_opened_file_path": "D:/Faculdade/AeP/AeP-SegundoAno/2 - semestre/Site/AeP--HungerLess",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -44,8 +51,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.29188.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.29188.11" />
       </set>
     </attachedChunks>
   </component>
@@ -57,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1761333988749</updated>
       <workItem from="1761333992469" duration="721000" />
+      <workItem from="1762274719699" duration="23000" />
     </task>
     <servers />
   </component>
